@@ -10,38 +10,28 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     file.read_to_string(&mut content).expect("cannot read file");
 
     if config.case_sensitive {
-        for line in search_case_sensitive(&config.query, &content) {
-            println!("{}", line)
-        }
+        search_case_sensitive(&config.query, &content)
+            .iter()
+            .for_each(|line| println!("{}", line))
     } else {
-        for line in search_case_insensitive(&config.query, &content) {
-            println!("{}", line)
-        }
+        search_case_insensitive(&config.query, &content)
+            .iter()
+            .for_each(|line| println!("{}", line))
     }
 
     Ok(())
 }
 
 pub fn search_case_sensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    let mut result = Vec::new();
-
-    for line in content.lines() {
-        if line.contains(query) {
-            result.push(line);
-        }
-    }
-
-    result
+    content
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    let mut result = Vec::new();
-
-    for line in content.lines() {
-        if line.to_lowercase().contains(&query.to_lowercase()) {
-            result.push(line);
-        }
-    }
-
-    result
+    content
+        .lines()
+        .filter(|line| line.to_lowercase().contains(&query.to_lowercase()))
+        .collect()
 }
