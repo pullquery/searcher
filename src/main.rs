@@ -1,9 +1,9 @@
-extern crate searcher;
-
 use std::env;
 use std::process;
 
-use searcher::Config;
+mod searcher;
+use searcher::config::Config;
+use searcher::search;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -12,7 +12,7 @@ fn main() {
         process::exit(1);
     });
 
-    if let Err(e) = searcher::run(config) {
+    if let Err(e) = search::run(config) {
         eprintln!("running error: {}", e);
         process::exit(1);
     }
@@ -20,6 +20,8 @@ fn main() {
 
 #[cfg(test)]
 mod test {
+    use crate::searcher::search;
+
     #[test]
     fn test_search() {
         let query = "safe";
@@ -31,7 +33,7 @@ Pick three.
 
         assert_eq!(
             vec!["safe, fast, productive."],
-            searcher::search_case_sensitive(query, content)
+            search::search_case_sensitive(query, content)
         );
     }
 
@@ -46,7 +48,7 @@ Pick three.
 
         assert_eq!(
             vec!["Rust:"],
-            searcher::search_case_insensitive(query, content)
+            search::search_case_insensitive(query, content)
         );
     }
 }
