@@ -17,3 +17,36 @@ fn main() {
         process::exit(1);
     }
 }
+
+#[cfg(test)]
+mod test {
+    #[test]
+    fn test_search() {
+        let query = "safe";
+        let content = "
+Rust:
+safe, fast, productive.
+Pick three.
+";
+
+        assert_eq!(
+            vec!["safe, fast, productive."],
+            searcher::search_case_sensitive(query, content)
+        );
+    }
+
+    #[test]
+    fn test_case_insensitive() {
+        let query = "ruSt";
+        let content = "
+Rust:
+safe, fast, productive.
+Pick three.
+";
+
+        assert_eq!(
+            vec!["Rust:"],
+            searcher::search_case_insensitive(query, content)
+        );
+    }
+}
