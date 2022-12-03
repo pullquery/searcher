@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod test {
-    use crate::searcher::search;
+    use super::super::search;
 
     #[test]
-    fn test_search() {
+    fn search_case_sensitive() {
         let query = "safe";
         let content = "
 Rust:
@@ -18,7 +18,7 @@ Pick three.
     }
 
     #[test]
-    fn test_case_insensitive() {
+    fn search_case_insensitive() {
         let query = "ruSt";
         let content = "
 Rust:
