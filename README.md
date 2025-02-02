@@ -1,11 +1,3 @@
-# Searcher
-
-CLI searcher built with Rust.
-
-Example from '[The Rust Programming Language](https://doc.rust-lang.org/book/)', chapter 12.
-
-## Usage
-
 ```sh
 # Run
 cargo run [query] [filename]
