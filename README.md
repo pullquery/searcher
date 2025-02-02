@@ -1,4 +1,4 @@
-```sh
-searcher language ./examples/example.txt
+```
+searcher language examples/example.txt
 CASE_INSENSITIVE=1
 ```
